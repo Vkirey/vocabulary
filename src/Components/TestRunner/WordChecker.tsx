@@ -40,6 +40,7 @@ export const WordChecker: React.FC<WordCheckerProps> = ({
         ? translation.toLowerCase() === word?.german.toLowerCase()
         : translation.toLowerCase() === word?.english.toLowerCase()
     );
+    setTranslation('')
   }, [translation, word, isEng, onNext]);
 
   const keyPress: React.KeyboardEventHandler = React.useCallback(

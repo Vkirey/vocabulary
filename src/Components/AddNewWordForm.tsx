@@ -112,7 +112,10 @@ export const AddNewWordForm: React.FC = () => {
 
       <Button
         variant="contained"
-        disabled={words.length < 1}
+        disabled={
+          words.length <
+          1 /* here we may want to change 1 to 20 if we want to avoid ability to test yourself unless at least 20 words are already described */
+        }
         onClick={() => goToTest()}
       >
         Test me!

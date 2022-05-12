@@ -28,12 +28,12 @@ export const TestRunner: React.FC = () => {
       setScore(score => [...score, success])
   }, [setScore, setCurrentWordIndex])
 
-  return currentWordIndex === COUNT_OF_WORDS_IN_TEST ? (
+  return currentWordIndex === wordsForTest.length ? (
     <ResultView score={score} wordsForTest={wordsForTest} />
   ) : (
     <>
       <LinearProgress 
-        value={currentWordIndex/COUNT_OF_WORDS_IN_TEST * 100} variant="determinate"
+        value={currentWordIndex/wordsForTest.length * 100} variant="determinate"
         style={{ marginBottom: '25px' }}
       />
       <WordChecker
