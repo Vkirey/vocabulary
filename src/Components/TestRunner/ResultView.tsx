@@ -9,7 +9,7 @@ interface ResultViewProps {
 
 export const ResultView: React.FC<ResultViewProps> = ({ score, wordsForTest }) => {
 
-    const calculatedScorePercentage = React.useMemo(() => (score.filter(x => x).length / score.length) * 100, [score])
+    const calculatedScorePercentage = React.useMemo(() => Math.round((score.filter(x => x.success).length / score.length)  * 100), [score])
 
     const data: Array<Word> = React.useMemo(() => wordsForTest.map((w, index) => { 
         w.success = score[index].success; 
