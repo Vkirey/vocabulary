@@ -32,6 +32,7 @@ export const LanguageSwitcher: React.FC = () => {
       <StyledIconButton
         disabled={language === LANGUAGES.ENG_TO_GER}
         onClick={() => changeLanguage(LANGUAGES.ENG_TO_GER)}
+        size="small"
       >
         <img
           src={lang_flag}
@@ -46,6 +47,7 @@ export const LanguageSwitcher: React.FC = () => {
       <StyledIconButton
         disabled={language === LANGUAGES.GER_TO_ENG}
         onClick={() => changeLanguage(LANGUAGES.GER_TO_ENG)}
+        size="small"
       >
         <img
           src={lang_flag}
