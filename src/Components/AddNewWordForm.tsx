@@ -62,7 +62,7 @@ export const AddNewWordForm: React.FC = () => {
 
   return (
     <AddNewWordFormWrapper>
-      <Snackbar open={showSnack} autoHideDuration={2000}>
+      <Snackbar open={showSnack} autoHideDuration={2000} onClose={() => setShowSnack(false)}>
         <Alert severity={snackSeverity}>{snackMsg}</Alert>
       </Snackbar>
       <DoubleInputContainer>

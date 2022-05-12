@@ -120,7 +120,7 @@ export const WordsTable: React.FC<WordsTableProps> = ({ wordsData }) => {
                 )}
                 {!wordsData && (
                   <TableCell align="right">
-                    <Button onClick={() => tryDelete(index)}>X</Button>
+                    <Button onClick={() => tryDelete(index)} >X</Button>
                   </TableCell>
                 )}
               </TableRow>
