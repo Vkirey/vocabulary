@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Word } from "../../Types/WordTypes";
+import { ScoreType, Word } from "../../Types/WordTypes";
 import styled from "@emotion/styled";
 import { Button, TextField } from "@mui/material";
 import { useLanguage } from "../../Providers/LanguageProvider";
@@ -15,7 +15,7 @@ const WordCheckerContainer = styled.div`
 interface WordCheckerProps {
   wordsForTest: Array<Word>;
   currentWordIndex: number;
-  onNext: (success: boolean) => void;
+  onNext: (userInput: ScoreType) => void;
 }
 
 export const WordChecker: React.FC<WordCheckerProps> = ({
@@ -25,7 +25,10 @@ export const WordChecker: React.FC<WordCheckerProps> = ({
 }) => {
   const { language } = useLanguage();
 
-  const isEng = React.useMemo(() => language === LANGUAGES.ENG_TO_GER, [language])
+  const isEng = React.useMemo(
+    () => language === LANGUAGES.ENG_TO_GER,
+    [language]
+  );
 
   const [translation, setTranslation] = React.useState("");
   const [word, setWord] = React.useState<Word>();
@@ -35,12 +38,13 @@ export const WordChecker: React.FC<WordCheckerProps> = ({
   }, [currentWordIndex, wordsForTest]);
 
   const checkWord = React.useCallback(() => {
-    onNext(
-        isEng
+    onNext({
+      success: isEng
         ? translation.toLowerCase() === word?.german.toLowerCase()
-        : translation.toLowerCase() === word?.english.toLowerCase()
-    );
-    setTranslation('')
+        : translation.toLowerCase() === word?.english.toLowerCase(),
+      userInput: translation,
+    });
+    setTranslation("");
   }, [translation, word, isEng, onNext]);
 
   const keyPress: React.KeyboardEventHandler = React.useCallback(
@@ -52,8 +56,6 @@ export const WordChecker: React.FC<WordCheckerProps> = ({
     [checkWord, translation]
   );
 
-  
-
   return (
     <WordCheckerContainer>
       <TextField
@@ -61,7 +63,7 @@ export const WordChecker: React.FC<WordCheckerProps> = ({
         disabled
         value={isEng ? word?.english : word?.german}
       />
-      {isEng ? 'is a...' : 'ist ein...'}
+      {isEng ? "is a..." : "ist ein..."}
       <TextField
         onKeyDown={keyPress}
         label={isEng ? "German" : "English"}

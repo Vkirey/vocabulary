@@ -35,10 +35,13 @@ export const WordsTable: React.FC<WordsTableProps> = ({ wordsData }) => {
     wordsData ? 20 : ROWS_PER_PAGE_OPTIONS[0]
   );
 
-  const isEng = Rect.useMemo(() => language === LANGUAGES.ENG_TO_GER, [language])
+  const isEng = Rect.useMemo(
+    () => language === LANGUAGES.ENG_TO_GER,
+    [language]
+  );
 
   // Here we use ref instead of state as this is private logical variable which we don't need to cause re-rendering checks
-  const indexToDelete = Rect.useRef(0)
+  const indexToDelete = Rect.useRef(0);
 
   const onPageChange = (
     event: React.MouseEvent<HTMLButtonElement> | null,
@@ -65,13 +68,13 @@ export const WordsTable: React.FC<WordsTableProps> = ({ wordsData }) => {
   }, [words, rowsPerPage, page]);
 
   const tryDelete = Rect.useCallback((index: number) => {
-    indexToDelete.current = index
-    setShowDeleteConfirmation(true)
-  }, [])
+    indexToDelete.current = index;
+    setShowDeleteConfirmation(true);
+  }, []);
 
   const proceedDelete = Rect.useCallback(() => {
-    deleteWordByIndex(indexToDelete.current)
-  }, [indexToDelete])
+    deleteWordByIndex(indexToDelete.current);
+  }, [indexToDelete]);
 
   return (
     <>
@@ -85,12 +88,11 @@ export const WordsTable: React.FC<WordsTableProps> = ({ wordsData }) => {
         <Table sx={{ minWidth: 650 }}>
           <TableHead>
             <TableRow>
-              <TableCell align="right" width={"45%"}>
+              <TableCell align="right">
                 {isEng ? "English" : "German"}
               </TableCell>
-              <TableCell align="left" width={"45%"}>
-                {isEng ? "German" : "English"}
-              </TableCell>
+              <TableCell align="left">{isEng ? "German" : "English"}</TableCell>
+              {wordsData && <TableCell align="right">Your input</TableCell>}
               {!wordsData && <TableCell align="right" width={"10%"} />}
             </TableRow>
           </TableHead>
@@ -113,6 +115,9 @@ export const WordsTable: React.FC<WordsTableProps> = ({ wordsData }) => {
                 <TableCell align="left">
                   {isEng ? row.german : row.english}
                 </TableCell>
+                {wordsData && (
+                  <TableCell align="right">{row.userInput ?? ""}</TableCell>
+                )}
                 {!wordsData && (
                   <TableCell align="right">
                     <Button onClick={() => tryDelete(index)}>X</Button>

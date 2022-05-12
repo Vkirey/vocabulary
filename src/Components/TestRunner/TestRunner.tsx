@@ -2,7 +2,7 @@ import * as React from "react";
 import { LinearProgress } from "@mui/material";
 import { COUNT_OF_WORDS_IN_TEST } from "../../constants";
 import { useWords } from "../../Providers/WordsProvider";
-import { Word } from "../../Types/WordTypes";
+import { ScoreType, Word } from "../../Types/WordTypes";
 import { WordChecker } from "./WordChecker";
 import { ResultView } from "./ResultView";
 
@@ -11,7 +11,7 @@ export const TestRunner: React.FC = () => {
 
   const [wordsForTest, setWordsForTest] = React.useState<Array<Word>>([]);
   const [currentWordIndex, setCurrentWordIndex] = React.useState(0);
-  const [score, setScore] = React.useState<Array<boolean>>([])
+  const [score, setScore] = React.useState<Array<ScoreType>>([])
 
   // Preparation for the test (20 or COUNT_OF_WORDS_IN_TEST words pick-up)
   React.useEffect(() => {
@@ -22,10 +22,10 @@ export const TestRunner: React.FC = () => {
     }
   }, [words, setWordsForTest]);
 
-  const onNextWordHandler = React.useCallback((success: boolean) =>
+  const onNextWordHandler = React.useCallback((userInput: ScoreType) =>
   {
       setCurrentWordIndex((currentWordIndex) => ++currentWordIndex)
-      setScore(score => [...score, success])
+      setScore(score => [...score, userInput])
   }, [setScore, setCurrentWordIndex])
 
   return currentWordIndex === wordsForTest.length ? (
